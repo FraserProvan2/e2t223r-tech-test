@@ -15,8 +15,16 @@ class Utility {
     return json_decode(json_encode($xml),TRUE);
   }
 
+  /**
+   * writes output to file as xml
+   * 
+   * @param string file name
+   * @param array total and currency code
+   * @return void
+   */
   static function outputNewTotal($output_file_name, $total) {
-    $file = fopen(('./output/' . $output_file_name . '.xml'), 'w'); 
+    $file_path = ('./output/' . $output_file_name . '.xml');
+    $file = fopen($file_path, 'w'); 
 
     $xml = new SimpleXMLElement('<exchanged/>');
 
@@ -26,8 +34,9 @@ class Utility {
     $new_total->addAttribute('currency_code', $total['code']);
 
     // write to file
-    Header('Content-type: text/xml');
     fwrite($file, $xml->saveXML());
+
+    print('Written: ' .  $file_path) .  PHP_EOL;
   }
 
   /**

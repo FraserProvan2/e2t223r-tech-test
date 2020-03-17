@@ -38,6 +38,11 @@ class Currency {
     return $most_recent;
   }
 
+  /**
+   * gets the most recent rate
+   * 
+   * @return array rate and country code
+   */
   public function getMostRecentRate() {
     return $this->most_recent_rate;
   }
