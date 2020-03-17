@@ -23,4 +23,7 @@ $eur = new Currency($exchange_rates_arr['currency'][1]);
 // calc exchange rates for orders
 $q1 = Utility::exchangeRate($order_1_total, 'GBP', 'EUR', $gbp);
 $q2 = Utility::exchangeRate($order_2_total, 'EUR', 'GBP', $eur);
-print_r($q2);
+
+// write output as xml
+Utility::outputNewTotal('case1', $q1);
+Utility::outputNewTotal('case2', $q2);

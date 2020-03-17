@@ -15,6 +15,21 @@ class Utility {
     return json_decode(json_encode($xml),TRUE);
   }
 
+  static function outputNewTotal($output_file_name, $total) {
+    $file = fopen(('./output/' . $output_file_name . '.xml'), 'w'); 
+
+    $xml = new SimpleXMLElement('<exchanged/>');
+
+    // adding amount
+    $new_total = $xml->addChild('total');
+    $new_total->addAttribute('amount', $total['total']);
+    $new_total->addAttribute('currency_code', $total['code']);
+
+    // write to file
+    Header('Content-type: text/xml');
+    fwrite($file, $xml->saveXML());
+  }
+
   /**
    * exchanges the rate of a currency to a new currency
    * 
@@ -39,7 +54,7 @@ class Utility {
     }
 
     return [
-      'total' => ($total * $exchange_rate),
+      'total' => round(($total * $exchange_rate), 2),
       'code' => $to_convert_to
     ];
   }
